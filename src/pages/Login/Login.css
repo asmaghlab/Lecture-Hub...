@@ -3,20 +3,23 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f2f5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding: 1.5rem;
 }
 
 .login-card {
-    background: white;
-    padding: 3rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    /* Soft, professional shadow */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3.5rem 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease;
 }
 
 .login-header {
@@ -25,48 +28,56 @@
 }
 
 .icon-circle {
-    width: 60px;
-    height: 60px;
-    background-color: #e6f0ff;
-    /* Light blue background */
-    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #e7f1ff 0%, #ffffff 100%);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 16px rgba(13, 110, 253, 0.1);
+    border: 1px solid #e7f1ff;
+    transition: transform 0.3s ease;
+}
+
+.icon-circle:hover {
+    transform: rotate(10deg);
 }
 
 .user-icon {
-    font-size: 24px;
-    color: #007bff;
-    /* Primary blue */
+    font-size: 28px;
+    color: #0d6efd;
 }
 
 .login-header h2 {
     margin: 0;
-    color: #333;
-    font-size: 1.5rem;
-    font-weight: 700;
+    color: #1a1a1a;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    color: #666;
+    color: #64748b;
     margin: 0.5rem 0 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
+    margin-bottom: 0.6rem;
+    color: #475569;
     font-weight: 700;
     font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
+    padding-left: 4px;
 }
 
 .input-wrapper {
@@ -77,50 +88,101 @@
 
 .input-icon {
     position: absolute;
-    left: 12px;
-    color: #999;
+    left: 1.25rem;
+    color: #0d6efd;
     display: flex;
     align-items: center;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-    /* Space for icon */
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    color: #333;
-    transition: border-color 0.2s;
+    padding: 1rem 1rem 1rem 3.25rem;
+    border: 2px solid #f1f5f9;
+    background: #f8fafc;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
 }
 
 .form-group input::placeholder {
-    color: #aaa;
+    color: #94a3b8;
+    font-weight: 400;
 }
 
 .form-group input:focus {
-    border-color: #007bff;
+    background: white;
+    border-color: #0d6efd;
     outline: none;
-    /* No box shadow as requested previously, but border change is nice */
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.08);
 }
 
 .login-btn {
     width: 100%;
-    padding: 0.85rem;
-    background-color: #007bff;
-    /* Bright blue */
+    padding: 1rem;
+    background-color: #0d6efd;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 1rem;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
 }
 
 .login-btn:hover {
-    background-color: #0069d9;
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* Page footer text if needed */
+.login-card-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1rem;
+        background: white;
+        /* Simpler for small screens */
+    }
+
+    .login-card {
+        padding: 2rem 1.5rem;
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .icon-circle {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+    }
+
+    .form-group input {
+        padding: 0.85rem 0.85rem 0.85rem 3rem;
+    }
 }
