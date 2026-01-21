@@ -18,11 +18,11 @@
 }
 
 .navbar-brand a {
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 850;
     color: #007bff;
     text-decoration: none;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
 }
 
 .navbar-menu {
@@ -142,10 +142,6 @@
     .nav-item {
         padding: 0.5rem;
         font-size: 0.85rem;
-    }
-
-    .nav-item span {
-        /* Optionally hide text label on very small screens */
     }
 
     .user-section {

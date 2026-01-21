@@ -12,19 +12,19 @@ const Upload = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
 
     const onDrop = useCallback(acceptedFiles => {
-        setFiles(prev => {
-            // Filter duplicates efficiently within the setter to avoid dependency on 'files' in useCallback
-            const newFiles = acceptedFiles.filter(file => !prev.some(f => f.name === file.name));
-            if (newFiles.length < acceptedFiles.length) {
-                toast('Some files were already added', { icon: 'ℹ️', id: 'dup-toast' });
-            }
-            if (newFiles.length > 0) {
-                toast.success(`Added ${newFiles.length} file(s)`, { id: 'add-toast' });
-                return [...prev, ...newFiles];
-            }
-            return prev;
-        });
-    }, []);
+        // We handle duplicate check here to avoid side-effects in setFiles
+        const existingNames = files.map(f => f.name);
+        const newFiles = acceptedFiles.filter(file => !existingNames.includes(file.name));
+
+        if (newFiles.length < acceptedFiles.length) {
+            toast('Some files were already added', { icon: 'ℹ️', id: 'dup-toast' });
+        }
+
+        if (newFiles.length > 0) {
+            toast.success(`Added ${newFiles.length} file(s)`, { id: 'add-toast' });
+            setFiles(prev => [...prev, ...newFiles]);
+        }
+    }, [files]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -138,7 +138,9 @@ const Upload = () => {
                                 <div className="file-info-left">
                                     {getFileIcon(file.name)}
                                     <div className="file-details">
-                                        <span className="filename">{file.name}</span>
+                                        <span className="filename">
+                                            {typeof file.name === 'string' ? file.name : (file.title || 'Untitled File')}
+                                        </span>
                                         <span className="filesize">{formatSize(file.size)}</span>
                                     </div>
                                 </div>
@@ -168,7 +170,9 @@ const Upload = () => {
                                 className="progress-bar-fill"
                                 style={{ width: `${uploadProgress}%` }}
                             ></div>
-                            <span className="progress-text">{uploadProgress}%</span>
+                            <span className="progress-text">
+                                {typeof uploadProgress === 'number' ? uploadProgress : 0}%
+                            </span>
                         </div>
                     )}
 
