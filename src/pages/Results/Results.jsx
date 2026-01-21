@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaFilePdf, FaFileCsv, FaFileVideo, FaDownload, FaEye, FaSearch, FaPlus, FaFilter, FaFileImage, FaFileArchive, FaEllipsisV } from 'react-icons/fa';
+import { FaFilePdf, FaFileCsv, FaFileVideo, FaDownload, FaEye, FaSearch, FaPlus, FaFilter, FaFileImage, FaFileArchive, FaTimes, FaTrash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { storageService } from '../../services/storage.service';
 import Swal from 'sweetalert2';
@@ -12,6 +12,9 @@ const Results = () => {
     const [filteredLectures, setFilteredLectures] = useState([]);
     const [filterType, setFilterType] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [viewModal, setViewModal] = useState(null);
+    const itemsPerPage = 6;
 
     useEffect(() => {
         // Load user files from storage
@@ -100,13 +103,91 @@ const Results = () => {
         });
     };
 
-    const handleView = (item) => {
+    const handleDelete = (item) => {
         const fileName = item.title || item.name;
-        // Open a new tab (simulation)
-        window.open('', '_blank');
 
-        // Or show a modal if preferred, but "View opens it" usually means new tab or modal.
-        // Since we don't have the real file, we'll inform the user in a realistic way or just rely on the new tab opening.
+        Swal.fire({
+            title: 'Delete File?',
+            text: `Are you sure you want to delete "${fileName}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const userFiles = storageService.getFiles(user?.email || 'guest');
+                const updatedFiles = userFiles.filter(f => f.id !== item.id && f.name !== item.name);
+                localStorage.setItem(`files_${user?.email || 'guest'}`, JSON.stringify(updatedFiles));
+
+                setLectures(prev => prev.filter(f => f.id !== item.id));
+
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: `${fileName} has been deleted.`,
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+    };
+
+    const handleView = (item) => {
+        setViewModal(item);
+    };
+
+    const closeModal = () => {
+        setViewModal(null);
+    };
+
+    const handleDownloadFromModal = (item) => {
+        closeModal();
+        const fileName = item.title || item.name;
+
+        // Show loading alert
+        Swal.fire({
+            title: 'Downloading...',
+            text: `Preparing ${fileName} for download.`,
+            icon: 'info',
+            timer: 1500,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        }).then(() => {
+            // Create a dummy file blob for demonstration
+            // In a real app, this would be the actual file data
+            const blob = new Blob(['This is a sample file content'], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+
+            // Create download link and trigger download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+
+            // Show success message
+            Swal.fire({
+                title: 'Downloaded!',
+                text: `${fileName} has been downloaded successfully.`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        });
+    };
+
+    const handleOpenInNewTab = () => {
+        const newWindow = window.open('about:blank', '_blank');
+        if (newWindow) {
+            newWindow.document.write('<html><body><h1>File Preview</h1><p>In a real application, the file would be displayed here.</p></body></html>');
+        }
     };
 
     return (
@@ -176,8 +257,8 @@ const Results = () => {
                                 <button className="footer-btn view-btn" onClick={() => handleView(item)}>
                                     <FaEye /> View
                                 </button>
-                                <button className="footer-btn download-btn" onClick={() => handleDownload(item)}>
-                                    <FaDownload /> Download
+                                <button className="footer-btn delete-btn" onClick={() => handleDelete(item)}>
+                                    <FaTrash /> Delete
                                 </button>
                             </div>
                         </div>
@@ -190,6 +271,43 @@ const Results = () => {
                     </div>
                     <h3>No lectures found</h3>
                     <p>Try adjusting your search or filter criteria.</p>
+                </div>
+            )}
+
+            {viewModal && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={closeModal}>
+                            <FaTimes />
+                        </button>
+
+                        <div className="modal-header">
+                            <div className="modal-icon-large">
+                                {getIcon(viewModal)}
+                            </div>
+                            <h2 className="modal-title">{viewModal.title || viewModal.name}</h2>
+                            <p className="modal-subtitle">
+                                {(viewModal.type || viewModal.name?.split('.').pop())?.toUpperCase()} Preview
+                            </p>
+                            <p className="modal-description">
+                                PDF preview is available in a new tab or you can download the file.
+                            </p>
+                        </div>
+
+                        <div className="modal-footer">
+                            <div className="modal-actions">
+                                <button className="modal-action-btn open-btn" onClick={handleOpenInNewTab}>
+                                    <FaEye /> Open in New Tab
+                                </button>
+                                <button className="modal-action-btn download-btn" onClick={() => handleDownloadFromModal(viewModal)}>
+                                    <FaDownload /> Download
+                                </button>
+                            </div>
+                            <button className="modal-close-btn" onClick={closeModal}>
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
