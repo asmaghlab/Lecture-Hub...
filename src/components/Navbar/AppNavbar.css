@@ -18,11 +18,24 @@
 }
 
 .navbar-brand a {
-    font-size: 2rem;
-    font-weight: 850;
-    color: #007bff;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0d6efd;
     text-decoration: none;
-    letter-spacing: -1px;
+    letter-spacing: -0.8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.navbar-brand a:hover {
+    transform: scale(1.02);
+}
+
+.navbar-brand a::before {
+    content: "🎓";
+    font-size: 1.6rem;
 }
 
 .navbar-menu {

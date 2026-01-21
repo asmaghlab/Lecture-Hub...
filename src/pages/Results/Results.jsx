@@ -20,17 +20,9 @@ const Results = () => {
         // Load user files from storage
         const userFiles = storageService.getFiles(user?.email || 'guest');
 
-        // Mock data merged with user data
-        const mockData = [
-            { id: 'mock1', title: 'Introduction to React', type: 'pdf', date: '2023-10-15', size: '2.4 MB' },
-            { id: 'mock2', title: 'Advanced State Management', type: 'video', date: '2023-10-18', size: '150 MB' },
-            { id: 'mock3', title: 'User Data Analysis', type: 'csv', date: '2023-10-20', size: '45 KB' },
-        ];
-
-        // Combine: User files first (so they appear at the top)
-        const allFiles = [...userFiles, ...mockData];
-        setLectures(allFiles);
-        setFilteredLectures(allFiles);
+        // Only use the files uploaded by the user, no static/mock data
+        setLectures(userFiles);
+        setFilteredLectures(userFiles);
     }, [user]);
 
     useEffect(() => {
@@ -190,6 +182,14 @@ const Results = () => {
         }
     };
 
+    // Pagination logic
+    const totalPages = Math.ceil(filteredLectures.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentLectures = filteredLectures.slice(indexOfFirstItem, indexOfLastItem);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <div className="results-page">
             <div className="results-header-section">
@@ -206,10 +206,15 @@ const Results = () => {
                         <input
                             type="text"
                             className="search-input"
-                            placeholder="Search..."
+                            placeholder="Search lectures..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
+                        {searchTerm && (
+                            <button className="clear-search" onClick={() => setSearchTerm('')}>
+                                <FaTimes />
+                            </button>
+                        )}
                     </div>
 
                     <div className="filter-wrapper">
@@ -230,40 +235,71 @@ const Results = () => {
                 </div>
             </div>
 
-            {filteredLectures.length > 0 ? (
-                <div className="results-grid">
-                    {filteredLectures.map((item, index) => (
-                        <div key={item.id || index} className="lecture-card">
-                            <div className="card-top">
-                                <div className={`icon-box ${(item.type || item.name?.split('.').pop())?.toLowerCase()}`}>
-                                    {getIcon(item)}
+            {currentLectures.length > 0 ? (
+                <>
+                    <div className="results-grid">
+                        {currentLectures.map((item, index) => (
+                            <div key={item.id || index} className="lecture-card">
+                                <div className="card-top">
+                                    <div className={`icon-box ${(item.type || item.name?.split('.').pop())?.toLowerCase()}`}>
+                                        {getIcon(item)}
+                                    </div>
                                 </div>
-                                <div className="card-actions-top">
-                                    {/* Optional robust actions menu if needed, using View/Download buttons at bottom for now */}
+
+                                <div className="card-body">
+                                    <h3 className="lecture-title" title={item.title || item.name}>
+                                        {item.title || item.name}
+                                    </h3>
+                                    <p className="lecture-date">{item.date}</p>
+                                    <span className="lecture-size">
+                                        {item.size && (typeof item.size === 'number' ? (item.size / 1024 / 1024).toFixed(2) + ' MB' : item.size)}
+                                    </span>
                                 </div>
+
+                                <div className="card-footer">
+                                    <button className="footer-btn view-btn" onClick={() => handleView(item)}>
+                                        <FaEye /> View
+                                    </button>
+                                    <button className="footer-btn delete-btn" onClick={() => handleDelete(item)}>
+                                        <FaTrash /> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => paginate(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                <FaChevronLeft /> Previous
+                            </button>
+
+                            <div className="page-numbers">
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <button
+                                        key={i + 1}
+                                        className={`page-num ${currentPage === i + 1 ? 'active' : ''}`}
+                                        onClick={() => paginate(i + 1)}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                ))}
                             </div>
 
-                            <div className="card-body">
-                                <h3 className="lecture-title" title={item.title || item.name}>
-                                    {item.title || item.name}
-                                </h3>
-                                <p className="lecture-date">{item.date}</p>
-                                <span className="lecture-size">
-                                    {item.size && (typeof item.size === 'number' ? (item.size / 1024 / 1024).toFixed(2) + ' MB' : item.size)}
-                                </span>
-                            </div>
-
-                            <div className="card-footer">
-                                <button className="footer-btn view-btn" onClick={() => handleView(item)}>
-                                    <FaEye /> View
-                                </button>
-                                <button className="footer-btn delete-btn" onClick={() => handleDelete(item)}>
-                                    <FaTrash /> Delete
-                                </button>
-                            </div>
+                            <button
+                                className="page-btn"
+                                onClick={() => paginate(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next <FaChevronRight />
+                            </button>
                         </div>
-                    ))}
-                </div>
+                    )}
+                </>
             ) : (
                 <div className="empty-state">
                     <div className="empty-icon-box">

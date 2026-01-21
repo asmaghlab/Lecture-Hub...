@@ -13,7 +13,8 @@ export const authService = {
         return result;
     },
     logout: () => {
-        storageService.clear();
+        storageService.removeToken();
+        storageService.removeUser();
     },
     isAuthenticated: () => {
         return !!storageService.getToken();
