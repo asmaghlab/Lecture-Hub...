@@ -35,6 +35,8 @@ const AppNavbar = () => {
 
     const isActive = (path) => location.pathname === path;
 
+    const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+
     return (
         <nav className="app-navbar">
             <div className="navbar-container">
@@ -62,10 +64,10 @@ const AppNavbar = () => {
 
                             <div className="user-section">
                                 <div className="user-profile-group">
-                                    <Avatar name={user?.name} />
+                                    <Avatar name={displayName} />
                                     <div className="user-info">
                                         <span className="welcome-text">Welcome,</span>
-                                        <span className="user-name">{user?.name || user?.email?.split('@')[0]}</span>
+                                        <span className="user-name">{displayName}</span>
                                     </div>
                                 </div>
                                 <button onClick={handleLogout} className="logout-btn" title="Logout">
