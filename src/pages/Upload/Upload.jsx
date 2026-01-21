@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaCloudUploadAlt, FaFilePdf, FaFileCsv, FaFileImage, FaFileVideo, FaTimes, FaFileArchive, FaList } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
+import { storageService } from '../../services/storage.service';
 import './Upload.css';
 
 const Upload = () => {
@@ -39,6 +41,8 @@ const Upload = () => {
         setUploadProgress(0);
     };
 
+    const { user } = useAuth(); // Get current user
+
     const handleUpload = async () => {
         if (files.length === 0) return;
 
@@ -55,8 +59,19 @@ const Upload = () => {
             toast.loading(`Uploading... ${progress}%`, { id: loadingToast });
         }
 
+        // Prepare metadata for storage
+        const filesToStore = files.map(f => ({
+            id: Date.now() + Math.random(), // Unique ID
+            name: f.name,
+            size: f.size,
+            type: f.name.split('.').pop().toLowerCase(),
+            date: new Date().toISOString().split('T')[0]
+        }));
+
+        storageService.saveFiles(user?.email || 'guest', filesToStore);
+
         toast.dismiss(loadingToast);
-        toast.success('Files uploaded successfully!', { duration: 4000 });
+        toast.success('Files uploaded & saved successfully!', { duration: 4000 });
         setFiles([]);
         setUploading(false);
         setUploadProgress(0);

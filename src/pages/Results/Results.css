@@ -2,143 +2,330 @@
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1.5rem;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 80vh;
 }
 
-.results-header {
+.results-header-section {
+    margin-bottom: 2.5rem;
+}
+
+.header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.results-header h1 {
+.page-title {
     font-size: 1.8rem;
-    color: #333;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
     margin: 0;
 }
 
-.search-bar {
+.add-more-btn {
+    background-color: #0d6efd;
+    color: white;
+    text-decoration: none;
+    padding: 0.65rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+    transition: all 0.2s ease;
+}
+
+.add-more-btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.25);
+}
+
+.controls-container {
+    display: flex;
+    gap: 1rem;
+    background: white;
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Simplified Search */
+.search-wrapper {
+    flex: 1;
     position: relative;
-    width: 300px;
+    display: flex;
+    align-items: center;
 }
 
 .search-icon {
     position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 1rem;
     color: #999;
+    font-size: 0.9rem;
 }
 
-.search-bar input {
+.search-input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    border: 1px solid transparent;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #333;
     transition: all 0.2s;
+    outline: none;
 }
 
-.search-bar input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+.search-input:focus {
+    background-color: white;
+    border-color: #b6d4fe;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
+.search-input::placeholder {
+    color: #adb5bd;
+}
+
+/* Dropdown Filter */
+.filter-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 180px;
+}
+
+.filter-icon {
+    position: absolute;
+    left: 1rem;
+    z-index: 1;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.filter-dropdown {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    /* remove default arrow in Safari */
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #495057;
+    cursor: pointer;
+    font-weight: 500;
+    transition: border-color 0.2s;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 10px 10px;
+}
+
+.filter-dropdown:focus {
+    border-color: #86b7fe;
+    outline: none;
+}
+
+/* Grid & Cards */
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
-.result-card {
+.lecture-card {
     background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eaeaea;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #f0f0f0;
 }
 
-.result-card:hover {
+.lecture-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: #e0e0e0;
 }
 
-.card-icon {
+.card-top {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #f5f5f5;
+    position: relative;
+}
+
+.icon-box {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Icon Colors */
+.icon-box.pdf {
+    color: #e11d48;
+    background-color: #ffe4e6;
+}
+
+.icon-box.csv {
+    color: #16a34a;
+    background-color: #dcfce7;
+}
+
+.icon-box.video {
+    color: #7c3aed;
+    background-color: #ede9fe;
+}
+
+.icon-box.image {
+    color: #0284c7;
+    background-color: #e0f2fe;
+}
+
+.icon-box.zip {
+    color: #4b5563;
+    background-color: #f3f4f6;
+}
+
+.card-body {
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.lecture-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.lecture-date {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.lecture-size {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+    background-color: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.card-footer {
+    padding: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    border-top: 1px solid #f5f5f5;
+    background-color: white;
+}
+
+.footer-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.view-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.view-btn:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.download-btn {
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+.download-btn:hover {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.empty-icon-box {
     font-size: 3rem;
+    color: #e5e7eb;
     margin-bottom: 1rem;
 }
 
-.res-icon.pdf {
-    color: #dc3545;
+.empty-state h3 {
+    font-size: 1.25rem;
+    color: #374151;
+    margin-bottom: 0.5rem;
 }
 
-.res-icon.video {
-    color: #6f42c1;
+.empty-state p {
+    color: #9ca3af;
 }
 
-.res-icon.csv {
-    color: #28a745;
-}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .controls-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-.card-content h3 {
-    font-size: 1.1rem;
-    color: #333;
-    margin: 0 0 0.5rem;
-    font-weight: 600;
-}
+    .search-input {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
 
-.card-meta {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 1.5rem;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-}
+    .filter-dropdown {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
 
-.card-actions {
-    display: flex;
-    gap: 0.75rem;
-    width: 100%;
-}
+    .header-top {
+        margin-bottom: 1rem;
+    }
 
-.action-btn {
-    flex: 1;
-    padding: 0.6rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-
-.action-btn.view {
-    background-color: #e6f0ff;
-    color: #007bff;
-}
-
-.action-btn.view:hover {
-    background-color: #cfe2ff;
-}
-
-.action-btn.download {
-    background-color: #f8f9fa;
-    color: #555;
-    border: 1px solid #eee;
-}
-
-.action-btn.download:hover {
-    background-color: #e2e6ea;
-    color: #333;
+    .page-title {
+        font-size: 1.5rem;
+    }
 }
