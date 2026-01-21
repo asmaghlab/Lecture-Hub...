@@ -81,7 +81,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* Changed alignment */
     line-height: 1.2;
 }
 
@@ -113,4 +112,67 @@
 .logout-btn:hover {
     background-color: #dc3545;
     color: white;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 1rem;
+        height: 60px;
+    }
+
+    .navbar-brand a {
+        font-size: 1.25rem;
+    }
+
+    .navbar-menu {
+        gap: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        /* Hide standard links on mobile to save space, assuming icons or bottom bar might be better, but for now let's just keep them or hide text? Let's just reduce padding/size likely */
+        /* Re-enabling with smaller styles for this requirement unless a burger menu is requested. 
+           Given the "Professional" request, a burger menu would be best, but "responsive" might just mean "fits".
+           Let's show icons only or reduce text size. */
+        gap: 0.25rem;
+        display: flex;
+    }
+
+    .nav-item {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .nav-item span {
+        /* Optionally hide text label on very small screens */
+    }
+
+    .user-section {
+        padding-left: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .user-info {
+        display: none;
+        /* Hide welcome text on mobile to save space */
+    }
+
+    .logout-btn {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item {
+        font-size: 0;
+        /* Hide text, show icon only */
+        padding: 0.5rem;
+        gap: 0;
+    }
+
+    .nav-item .nav-icon {
+        font-size: 1.2rem;
+        margin: 0;
+    }
 }

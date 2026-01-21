@@ -35,7 +35,10 @@ const AppNavbar = () => {
 
     const isActive = (path) => location.pathname === path;
 
-    const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+    const displayNameRaw = user?.name || user?.email?.split('@')[0] || 'User';
+    const displayName = displayNameRaw.charAt(0).toUpperCase() + displayNameRaw.slice(1);
+
+    const isLoginPage = location.pathname === '/login';
 
     return (
         <nav className="app-navbar">
@@ -45,38 +48,40 @@ const AppNavbar = () => {
                 </div>
 
                 <div className="navbar-menu">
-                    {isAuthenticated ? (
-                        <>
-                            <div className="nav-links">
-                                <Link
-                                    to="/upload"
-                                    className={`nav-item ${isActive('/upload') ? 'active' : ''}`}
-                                >
-                                    <FaCloudUploadAlt className="nav-icon" /> Upload
-                                </Link>
-                                <Link
-                                    to="/results"
-                                    className={`nav-item ${isActive('/results') ? 'active' : ''}`}
-                                >
-                                    <FaList className="nav-icon" /> Results
-                                </Link>
-                            </div>
-
-                            <div className="user-section">
-                                <div className="user-profile-group">
-                                    <Avatar name={displayName} />
-                                    <div className="user-info">
-                                        <span className="welcome-text">Welcome,</span>
-                                        <span className="user-name">{displayName}</span>
-                                    </div>
+                    {!isLoginPage && (
+                        isAuthenticated ? (
+                            <>
+                                <div className="nav-links">
+                                    <Link
+                                        to="/upload"
+                                        className={`nav-item ${isActive('/upload') ? 'active' : ''}`}
+                                    >
+                                        <FaCloudUploadAlt className="nav-icon" /> Upload
+                                    </Link>
+                                    <Link
+                                        to="/results"
+                                        className={`nav-item ${isActive('/results') ? 'active' : ''}`}
+                                    >
+                                        <FaList className="nav-icon" /> Results
+                                    </Link>
                                 </div>
-                                <button onClick={handleLogout} className="logout-btn" title="Logout">
-                                    <FaSignOutAlt />
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <Link to="/login" className="nav-item">Login</Link>
+
+                                <div className="user-section">
+                                    <div className="user-profile-group">
+                                        <Avatar name={displayName} />
+                                        <div className="user-info">
+                                            <span className="welcome-text">Welcome,</span>
+                                            <span className="user-name">{displayName}</span>
+                                        </div>
+                                    </div>
+                                    <button onClick={handleLogout} className="logout-btn" title="Logout">
+                                        <FaSignOutAlt />
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <Link to="/login" className="nav-item">Login</Link>
+                        )
                     )}
                 </div>
             </div>

@@ -82,6 +82,8 @@
     justify-content: center;
     gap: 0.5rem;
     margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    /* Allow wrapping on mobile */
 }
 
 .badge {
@@ -164,15 +166,21 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 1;
+    min-width: 0;
+    /* Allow text truncation */
 }
 
 .file-details {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    /* For truncation */
 }
 
 .file-icon {
     font-size: 1.75rem;
+    flex-shrink: 0;
 }
 
 .file-icon.pdf {
@@ -203,6 +211,10 @@
     font-weight: 600;
     color: #212529;
     font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Truncate long filenames */
 }
 
 .filesize {
@@ -308,4 +320,40 @@
     color: #adb5bd;
     font-size: 0.9rem;
     background-color: #f8f9fa;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+    .upload-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .dropzone-area {
+        padding: 2rem 1rem;
+    }
+
+    .cloud-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .file-item {
+        padding: 0.75rem;
+    }
+
+    .file-icon {
+        font-size: 1.5rem;
+    }
+
+    .filename {
+        font-size: 0.9rem;
+        max-width: 150px;
+        /* Force truncation on small screens */
+    }
 }
