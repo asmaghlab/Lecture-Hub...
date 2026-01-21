@@ -7,13 +7,13 @@ export const loginUser = async (email, password) => {
   try {
     const response = await axios.get(API_URL);
     // The previous context mentioned parsing a nested 'users' array
-    // Assuming the API returns an array or object with a users property
-    // We'll need to filter client-side since it's a mock API often
-    const users = response.data.users || response.data; 
-    
+    // The API returns an array, and the first element contains the "users" array
+    // Structure: [{ "users": [...] }]
+    const users = (response.data[0] && response.data[0].users) ? response.data[0].users : [];
+
     // Find user
     const user = users.find(u => u.email === email && u.password === password);
-    
+
     if (user) {
       return { success: true, user };
     } else {

@@ -1,54 +1,113 @@
 .app-navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 70px;
 }
 
 .navbar-brand a {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
+    font-weight: 800;
+    color: #007bff;
     text-decoration: none;
+    letter-spacing: -0.5px;
 }
 
 .navbar-menu {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .nav-item {
     color: #666;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
 }
 
 .nav-item:hover {
+    background-color: #f8f9fa;
     color: #007bff;
+}
+
+.nav-item.active {
+    background-color: #e6f0ff;
+    color: #007bff;
+}
+
+.nav-icon {
+    font-size: 1.1em;
 }
 
 .user-section {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid #eee;
+}
+
+.user-profile-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Changed alignment */
+    line-height: 1.2;
+}
+
+.welcome-text {
+    font-size: 0.75rem;
+    color: #888;
 }
 
 .user-name {
-    font-weight: 600;
+    font-weight: 700;
     color: #333;
+    font-size: 0.9rem;
 }
 
 .logout-btn {
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    border: 1px solid #dc3545;
+    padding: 0.6rem;
+    background-color: #fff0f1;
     color: #dc3545;
-    border-radius: 4px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
 }
 
 .logout-btn:hover {
