@@ -564,41 +564,186 @@
     color: #9ca3af;
 }
 
-@media (max-width: 768px) {
-    .controls-container {
-        flex-direction: column;
+/* Professional Mobile Specific Adjustments */
+@media (max-width: 992px) {
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.25rem;
     }
 
     .page-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-page {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+
+    .header-top {
+        margin-bottom: 1.25rem;
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+    }
+
+    .page-title::after {
+        display: none;
+        /* Cleaner look on mobile */
+    }
+
+    .add-more-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .controls-container {
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 16px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-wrapper,
+    .filter-wrapper {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+        /* Single column for better readability on tablets/phones */
+        gap: 1rem;
+    }
+
+    .lecture-card {
+        flex-direction: row;
+        /* Horizontal layout on mobile for better space usage */
+        align-items: center;
+        padding: 0.75rem;
+        height: auto;
+    }
+
+    .card-top {
+        padding: 0;
+        background: transparent;
+        border-bottom: none;
+        margin-right: 1rem;
+    }
+
+    .icon-box {
+        width: 50px;
+        height: 50px;
         font-size: 1.5rem;
+        border-radius: 12px;
+    }
+
+    .card-body {
+        padding: 0;
+        text-align: left;
+    }
+
+    .lecture-title {
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+    }
+
+    .lecture-date {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .lecture-size {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+
+    .card-footer {
+        padding: 0;
+        background: transparent;
+        border-top: none;
+        margin-left: auto;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-btn {
+        padding: 0.4rem;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    .footer-btn span {
+        display: none;
+        /* Icon only on mobile card list */
     }
 
     .pagination {
-        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        padding: 1.5rem 0;
     }
 
-    .page-numbers {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        margin-top: 0.5rem;
+    .page-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
     }
 
+    .page-num {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
     .modal-content {
-        margin: 1rem;
-        max-height: 85vh;
+        border-radius: 20px;
+    }
+
+    .modal-header {
+        padding: 2.5rem 1.5rem 1.5rem;
+    }
+
+    .modal-icon-large {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+
+    .modal-title {
+        font-size: 1.25rem;
+    }
+
+    .modal-footer {
+        padding: 1rem 1.5rem 1.5rem;
     }
 
     .modal-actions {
-        flex-direction: column;
-    }
-
-    .preview-stats {
-        flex-direction: column;
         gap: 0.75rem;
     }
 
-    .stat-box {
-        width: 100%;
+    .modal-action-btn {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Landscape Mode support */
+@media (max-width: 900px) and (orientation: landscape) {
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lecture-card {
+        flex-direction: column;
     }
 }

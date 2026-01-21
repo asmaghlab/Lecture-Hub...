@@ -173,6 +173,24 @@
 }
 
 @media (max-width: 480px) {
+    .navbar-container {
+        padding: 0 0.75rem;
+    }
+
+    .navbar-brand a {
+        font-size: 1.15rem;
+        gap: 0.35rem;
+    }
+
+    .navbar-brand a::before {
+        font-size: 1.3rem;
+    }
+
+    .user-section {
+        gap: 0.5rem;
+        padding-left: 0.5rem;
+    }
+
     .nav-item {
         font-size: 0;
         /* Hide text, show icon only */
@@ -183,5 +201,11 @@
     .nav-item .nav-icon {
         font-size: 1.2rem;
         margin: 0;
+    }
+
+    .logout-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
     }
 }

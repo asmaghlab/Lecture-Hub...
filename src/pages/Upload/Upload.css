@@ -322,38 +322,104 @@
     background-color: #f8f9fa;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 576px) {
+/* Professional Mobile Specific Adjustments */
+@media (max-width: 768px) {
+    .upload-page {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+
     .upload-header h1 {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
+    }
+
+    .dropzone-area {
+        padding: 2.5rem 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .cloud-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        font-size: 2.5rem;
+        border-width: 2px;
+    }
+
+    .dropzone-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .file-item {
+        padding: 0.85rem;
+    }
+
+    .file-icon {
+        font-size: 1.35rem;
+    }
+
+    .filename {
+        font-size: 0.85rem;
+        max-width: 140px;
+    }
+
+    .filesize {
+        font-size: 0.75rem;
+    }
+
+    .remove-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 576px) {
+    .upload-page {
+        margin: 1rem auto;
+    }
+
+    .upload-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .upload-header p {
+        font-size: 0.85rem;
     }
 
     .dropzone-area {
         padding: 2rem 1rem;
     }
 
-    .cloud-icon-wrapper {
-        width: 80px;
-        height: 80px;
-        font-size: 3rem;
-    }
-
     .badge {
-        font-size: 0.7rem;
-        padding: 0.25rem 0.5rem;
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
     }
 
-    .file-item {
-        padding: 0.75rem;
+    .list-header {
+        padding: 0.6rem 0.85rem;
     }
 
-    .file-icon {
-        font-size: 1.5rem;
+    .list-title {
+        font-size: 0.85rem;
     }
 
-    .filename {
+    .clear-btn {
+        padding: 0.2rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .upload-footer {
+        padding: 0.85rem;
+    }
+
+    .upload-action-btn {
         font-size: 0.9rem;
-        max-width: 150px;
-        /* Force truncation on small screens */
+        padding: 0.65rem;
+    }
+}
+
+@media (max-height: 700px) and (max-width: 576px) {
+    .files-list {
+        max-height: 200px;
     }
 }
