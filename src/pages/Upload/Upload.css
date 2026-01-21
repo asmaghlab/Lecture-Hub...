@@ -1,0 +1,19 @@
+.upload-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    background-color: #fafafa;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.file-input {
+    margin-top: 1rem;
+}
