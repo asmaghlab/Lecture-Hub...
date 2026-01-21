@@ -258,10 +258,10 @@ const Results = () => {
 
                                 <div className="card-footer">
                                     <button className="footer-btn view-btn" onClick={() => handleView(item)}>
-                                        <FaEye /> View
+                                        <FaEye /> <span>View</span>
                                     </button>
                                     <button className="footer-btn delete-btn" onClick={() => handleDelete(item)}>
-                                        <FaTrash /> Delete
+                                        <FaTrash /> <span>Delete</span>
                                     </button>
                                 </div>
                             </div>

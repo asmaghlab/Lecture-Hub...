@@ -7,14 +7,14 @@ const Avatar = ({ name }) => {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        backgroundColor: '#89CFF0', // Baby Blue
-        color: 'white',
+        backgroundColor: '#e0f2fe', // Very light, elegant blue (Sky 100)
+        color: '#0369a1', // Darker blue for text contrast (Sky 700)
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: 'bold',
+        fontWeight: '700',
         fontSize: '14px',
-        border: '1px solid #e1e4e8' // Optional subtle border for contrast against white
+        border: '1.5px solid #bae6fd' // Soft border (Sky 200)
     };
 
     return (

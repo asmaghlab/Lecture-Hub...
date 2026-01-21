@@ -675,15 +675,17 @@
     }
 
     .footer-btn {
-        padding: 0.4rem;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
+        padding: 0.5rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
     }
 
-    .footer-btn span {
-        display: none;
-        /* Icon only on mobile card list */
+    .footer-btn span,
+    .view-btn span,
+    .delete-btn span {
+        display: none !important;
+        /* Force icons only on mobile */
     }
 
     .pagination {

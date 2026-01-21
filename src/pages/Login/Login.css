@@ -159,13 +159,17 @@
 /* Mobile Responsiveness */
 @media (max-width: 480px) {
     .login-container {
-        padding: 1rem;
+        padding: 0.5rem;
+        /* Reduced padding for more space */
         background: white;
-        /* Simpler for small screens */
+        align-items: flex-start;
+        /* Start from top instead of middle to reduce initial white space */
     }
 
     .login-card {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1.25rem;
+        margin-top: 2rem !important;
+        /* Controlled top margin */
         box-shadow: none;
         border: none;
         max-width: 100%;
