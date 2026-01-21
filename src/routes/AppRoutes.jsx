@@ -1,5 +1,4 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../components/ProtectedRoute';
 import AppNavbar from '../components/Navbar/AppNavbar';
 import Login from '../pages/Login/Login';
@@ -7,9 +6,12 @@ import Upload from '../pages/Upload/Upload';
 import Results from '../pages/Results/Results';
 
 const AppRoutes = () => {
+    const location = useLocation();
+    const isLoginPage = location.pathname === '/login';
+
     return (
         <>
-            <AppNavbar />
+            {!isLoginPage && <AppNavbar />}
             <Routes>
                 <Route path="/login" element={<Login />} />
 
